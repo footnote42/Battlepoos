@@ -4,3 +4,11 @@ dist
 .DS_Store
 coverage
 *.log
+
+# IDE and editor configs
+.vscode/
+.claude/
+
+# Test outputs
+*_output.txt
+*_output_*.txt
