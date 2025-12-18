@@ -49,9 +49,23 @@ export const useGameStore = create<GameStore>((set: any, get: any) => ({
             set({ error: err.message });
         });
 
-        socket.on('event', (evt) => {
-            // Can handle transient events (toasts) here or in components via subscription
+        socket.on('event', (evt: any) => {
             console.log('Game Event', evt);
+            // Dynamic import to avoid circular dep issues mostly, but we can import top level
+            import('../shared/audio').then(m => {
+                if (evt.type === 'hit') m.audioManager.play('hit');
+                if (evt.type === 'miss') m.audioManager.play('miss');
+                if (evt.type === 'sunk') m.audioManager.play('sink');
+            });
+
+            // Toasts via dynamic import or just let component handle? 
+            // Better to decouple store from UI components, but we are inside a hook effectively.
+            // Let's lazy import the store to avoid cyclical issues if any, though store->store is usually fine.
+            import('./toastStore').then(ts => {
+                if (evt.type === 'sunk') ts.useToastStore.getState().addToast(`You sunk a ${evt.ship.type}!`, 'success');
+                if (evt.type === 'hit') ts.useToastStore.getState().addToast('Hit!', 'success');
+                if (evt.type === 'miss') ts.useToastStore.getState().addToast('Miss!', 'info');
+            });
         });
     },
 

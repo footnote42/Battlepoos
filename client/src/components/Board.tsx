@@ -45,7 +45,12 @@ const Board: React.FC<BoardProps> = ({ ships = [], shots, onCellClick, showShips
                     return (
                         <div
                             key={`${x},${y}`}
-                            onClick={() => interactive && onCellClick?.({ x, y })}
+                            onClick={() => {
+                                if (interactive && onCellClick) {
+                                    import('../shared/audio').then(m => m.audioManager.play('place'));
+                                    onCellClick({ x, y });
+                                }
+                            }}
                             className={clsx(
                                 "w-8 h-8 md:w-10 md:h-10 border border-blue-300 rounded flex items-center justify-center text-lg transition-colors cursor-pointer",
                                 interactive && !shot ? "hover:bg-blue-300" : "",

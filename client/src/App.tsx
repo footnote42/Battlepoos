@@ -3,6 +3,7 @@ import { useGameStore } from './game/store';
 import Lobby from './components/Lobby';
 import Placement from './components/Placement';
 import Battle from './components/Battle';
+import { ToastContainer } from './components/ToastContainer';
 // import GameOver from './components/GameOver';
 
 function App() {
@@ -39,6 +40,9 @@ function App() {
                     {error}
                 </div>
             )}
+
+            {/* Toasts */}
+            <ToastContainer />
 
             <div className="w-full max-w-4xl bg-white rounded-xl shadow-2xl p-6 min-h-[600px]">
                 {renderPhase()}
