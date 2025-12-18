@@ -1,7 +1,6 @@
 import {
     Coordinate,
     Ship,
-    Orientation,
     BOARD_SIZE,
     SHIP_LENGTHS,
     PlayerBoard
@@ -57,7 +56,7 @@ export const resolveShot = (
     board: PlayerBoard,
     target: Coordinate
 ): { result: ShotResult; shipSunk?: Ship } => {
-    const key = `${target.x},${target.y}`;
+
 
     // Already shot? In a robust system, we check this higher up, but safe to return miss or error.
     // Here we assume validation happens before calling resolveShot if possible, 

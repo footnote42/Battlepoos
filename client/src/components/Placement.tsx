@@ -42,16 +42,65 @@ const Placement: React.FC = () => {
         }
     };
 
+
+
+    const handleConfirm = () => {
+        if (ships.length === 5) {
+            placeShips(ships);
+        }
+    };
+
     const handleReset = () => {
         setShips([]);
         setPlacedTypes(new Set());
         setSelectedType('carrier');
     };
 
-    const handleConfirm = () => {
-        if (ships.length === 5) {
-            placeShips(ships);
+    const handleRandomize = () => {
+        let attempts = 0;
+        while (attempts < 100) {
+            const newShips: Ship[] = [];
+            const newPlaced = new Set<ShipType>();
+            let possible = true;
+
+            for (const type of availableShips) {
+                let placed = false;
+                let subAttempts = 0;
+                while (!placed && subAttempts < 50) {
+                    const o: 'horizontal' | 'vertical' = Math.random() > 0.5 ? 'horizontal' : 'vertical';
+                    const x = Math.floor(Math.random() * 10);
+                    const y = Math.floor(Math.random() * 10);
+                    const candidate: Ship = {
+                        id: generateId(),
+                        type,
+                        position: { x, y },
+                        orientation: o,
+                        hits: 0,
+                        sunk: false
+                    };
+
+                    if (isValidPlacement(candidate, newShips)) {
+                        newShips.push(candidate);
+                        newPlaced.add(type);
+                        placed = true;
+                    }
+                    subAttempts++;
+                }
+                if (!placed) {
+                    possible = false;
+                    break;
+                }
+            }
+
+            if (possible) {
+                setShips(newShips);
+                setPlacedTypes(newPlaced);
+                setSelectedType(null);
+                return;
+            }
+            attempts++;
         }
+        alert("Failed to randomize, try again.");
     };
 
     return (
@@ -65,6 +114,9 @@ const Placement: React.FC = () => {
                 <div className="mt-4 flex gap-4">
                     <button onClick={() => setOrientation(o => o === 'horizontal' ? 'vertical' : 'horizontal')} className="px-4 py-2 bg-blue-500 text-white rounded shadow">
                         Rotate: {orientation.toUpperCase()}
+                    </button>
+                    <button onClick={handleRandomize} className="px-4 py-2 bg-purple-500 text-white rounded shadow">
+                        Randomize 🎲
                     </button>
                     <button onClick={handleReset} className="px-4 py-2 bg-red-400 text-white rounded shadow">
                         Reset
