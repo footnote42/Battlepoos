@@ -23,7 +23,7 @@ export interface PlayerBoard {
     shots: Map<string, CellState>; // Key: "x,y", Value: State
 }
 
-export type GamePhase = 'lobpy' | 'placement' | 'active' | 'finished';
+export type GamePhase = 'lobby' | 'placement' | 'active' | 'finished';
 
 export interface GameState {
     matchId: string;

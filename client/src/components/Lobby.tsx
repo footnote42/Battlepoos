@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useGameStore } from '../game/store';
 
 const Lobby: React.FC = () => {
-    const { createMatch, joinMatch } = useGameStore();
+    const { createMatch, joinMatch, gameState } = useGameStore();
     const [joinCode, setJoinCode] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -31,6 +31,15 @@ const Lobby: React.FC = () => {
                 <h2 className="text-2xl font-semibold text-gray-700">Welcome to the Bathroom</h2>
                 <p className="text-gray-500">Create a match or join a friend to start dropping... loads.</p>
             </div>
+
+            {/* Show Match ID if in lobby */}
+            {gameState && gameState.matchId && (
+                <div className="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-4 text-center">
+                    <p className="text-sm text-gray-600 mb-2">Share this code with your opponent:</p>
+                    <p className="text-3xl font-bold tracking-widest text-poo-brown">{gameState.matchId}</p>
+                    <p className="text-xs text-gray-500 mt-2">Waiting for opponent to join...</p>
+                </div>
+            )}
 
             <div className="flex flex-col md:flex-row gap-8 w-full max-w-lg">
                 {/* Create */}

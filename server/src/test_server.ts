@@ -35,6 +35,14 @@ const run = async () => {
     await setup();
 
     const matchManager = new MatchManager(io);
+
+    // Set up socket event handlers (missing from original test)
+    io.on('connection', (socket) => {
+        socket.on('join_match', ({ matchId, playerId }) => {
+            matchManager.joinMatch(socket, matchId, playerId);
+        });
+    });
+
     const matchId = matchManager.createMatch();
     // console.log('Match created:', matchId);
 
@@ -53,7 +61,7 @@ const run = async () => {
     await new Promise<void>(resolve => {
         clientSocket1.once('state_update', (state) => {
             // console.log('Client 1 received state:', state.phase);
-            if (state.phase !== 'lobpy' && state.phase !== 'lobby') { // Typo check
+            if (state.phase !== 'lobby') {
                 console.error('Unexpected phase:', state.phase);
             }
             resolve();

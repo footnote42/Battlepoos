@@ -20,7 +20,7 @@ export class Match {
         this.io = io;
         this.state = {
             matchId: id,
-            phase: 'lobpy', // Typo in types? handled below
+            phase: 'lobby',
             players: {},
             turn: '',
             winner: null
