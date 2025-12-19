@@ -106,15 +106,17 @@
   - Assigned to: TBD
   - Depends on: Issue #6 (player names)
   
-- [ ] **Issue #8:** Sound Effects (2-3h) → `/docs/issues/08-sound-effects.md`
-  - Status: NOT STARTED
-  - Assigned to: TBD
-  - Decision needed: Source sounds or generate?
+- [x] **Issue #8:** Sound Effects (2-3h) → `/docs/issues/08-sound-effects.md`
+  - Status: COMPLETE
+  - Assigned to: Claude Code
+  - Completed: 2025-12-19
+  - Implementation: Used Mixkit.co free sound library
+  - Notes: Mute toggle added to all screens, sounds respect tab focus
 
 **Phase 3 Exit Criteria:**
 - [ ] Players can enter custom names
 - [ ] Wins tracked across games (persists in browser)
-- [ ] Sound effects for key moments (with mute toggle)
+- [x] Sound effects for key moments (with mute toggle)
 - [ ] User tested with target audience (Wayne's sons)
 
 ---
