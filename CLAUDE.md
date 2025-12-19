@@ -190,11 +190,21 @@ Core game logic lives in `shared/src/logic.ts`:
 
 ## Audio and Visuals
 
+**Audio System:**
 - Audio effects via `client/src/shared/audio.ts` (hit, miss, sink, place, win, lose sounds)
 - Mute toggle available on all game screens (persists in localStorage)
 - Sounds respect tab focus (don't play when tab is hidden)
 - Toast notifications for game events
-- Humorous poo-themed emojis: 💧 miss, 💥 hit, 💩 sunk, 🚢 ship
+
+**Visual Design (Issue #5):**
+- Custom fonts: Fredoka One (headings), Quicksand (body text) from Google Fonts
+- Cohesive color palette with CSS custom properties in `client/src/index.css`
+- CSS-based icons (no emojis):
+  - `.icon-ship` - Brown poo-shaped gradient with rounded top
+  - `.icon-miss` - Blue ripple circles with animation
+  - `.icon-hit` - Red crossed lines with glow effect
+  - `.icon-sunk` - Larger poo icon with X overlay and pulse animation
+- Tailwind config extended with theme colors and font families
 
 ## TypeScript Configuration
 

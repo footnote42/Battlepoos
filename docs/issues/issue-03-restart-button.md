@@ -1,10 +1,10 @@
 # Issue #3: Add Restart Button (In-Game)
 
-**Priority:** P1 (Quality of life improvement)  
-**Estimated Effort:** 1 hour  
-**Phase:** 1 - Playable Core  
-**Dependencies:** Issue #1 (Game Over State) - reuses restart logic  
-**Status:** NOT STARTED
+**Priority:** P1 (Quality of life improvement)
+**Estimated Effort:** 1 hour
+**Phase:** 1 - Playable Core
+**Dependencies:** Issue #1 (Game Over State) - reuses restart logic
+**Status:** COMPLETE (2025-12-19)
 
 ---
 

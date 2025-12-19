@@ -5,12 +5,12 @@ A humorous, turn-based multiplayer naval combat game... with a twist. Built with
 ## 🚀 Features
 
 *   **Real-time Multiplayer:** Instant matchmaking and live state synchronization using WebSockets.
-*   **Humorous Theme:** "Poo" themed ships and sound effects (farts included).
+*   **Humorous Theme:** "Poo" themed ships with custom CSS icons and sound effects.
 *   **Interactive Gameplay:** Click-to-place ship placement with rotation and grid-based combat.
 *   **Complete Game Loop:** Winner/loser differentiation, restart functionality, and return to lobby.
 *   **Sound Effects:** Hit, miss, sink, win, and lose sounds with mute toggle (respects tab focus).
 *   **Responsive Design:** Works on desktop and mobile devices.
-*   **Visual Polish:** Toast notifications for game events and smooth animations.
+*   **Visual Polish:** Custom fonts (Fredoka One + Quicksand), cohesive color palette, CSS-based icons, toast notifications, and smooth animations.
 
 ## 🛠️ Tech Stack
 
@@ -80,9 +80,9 @@ You need two terminals.
     *   **Submarine (3 cells)**
     *   **Destroyer (2 cells)**
 3.  **Combat:** Players take turns firing shots at the opponent's grid.
-    *   **Miss:** Water Splash 💧
-    *   **Hit:** Explosion 💥
-    *   **Sunk:** Poo 💩
+    *   **Miss:** Blue ripple icon with animation
+    *   **Hit:** Red crosshairs with glow effect
+    *   **Sunk:** Brown poo-shaped icon with X overlay
 4.  **Winning:** The first player to sink all opponent ships wins!
     *   Winners see "Victory!" message (green)
     *   Losers see "Defeat!" message (gray)
