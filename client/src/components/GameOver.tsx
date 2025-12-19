@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useGameStore } from '../game/store';
+import { audioManager } from '../shared/audio';
+import MuteToggle from './MuteToggle';
 
 interface GameOverProps {
     winnerId: string;
@@ -10,8 +12,14 @@ const GameOver: React.FC<GameOverProps> = ({ winnerId, currentPlayerId }) => {
     const isWinner = winnerId === currentPlayerId;
     const { restartGame, returnToLobby } = useGameStore();
 
+    // Play win/loss sound when component mounts
+    useEffect(() => {
+        audioManager.play(isWinner ? 'win' : 'lose');
+    }, [isWinner]);
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen p-4 animate-fade-in">
+            <MuteToggle />
             <div className={`max-w-md w-full rounded-2xl shadow-2xl p-8 text-center transform transition-all ${
                 isWinner
                     ? 'bg-gradient-to-br from-green-100 to-green-200 border-4 border-green-400'

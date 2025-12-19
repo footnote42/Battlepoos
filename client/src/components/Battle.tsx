@@ -1,6 +1,7 @@
 import React from 'react';
 import { useGameStore } from '../game/store';
 import Board from './Board';
+import MuteToggle from './MuteToggle';
 
 const Battle: React.FC = () => {
     const { gameState, playerId, fireShot } = useGameStore();
@@ -15,6 +16,7 @@ const Battle: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center w-full animate-fade-in pb-8">
+            <MuteToggle />
             <h2 className="text-3xl font-extrabold mb-2 text-poo-brown drop-shadow-sm">
                 {isMyTurn ? "YOUR TURN! FIRE! 🔥" : "Opponent is aiming... 😰"}
             </h2>

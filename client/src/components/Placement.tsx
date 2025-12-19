@@ -3,6 +3,7 @@ import { useGameStore } from '../game/store';
 import Board from './Board';
 import { Ship, ShipType, SHIP_LENGTHS, Coordinate } from '../shared/types';
 import { isValidPlacement } from '../shared/logic';
+import MuteToggle from './MuteToggle';
 // Simple ID generator if uuid fails or for simplicity
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
@@ -105,6 +106,7 @@ const Placement: React.FC = () => {
 
     return (
         <div className="flex flex-col md:flex-row gap-8 items-start animate-fade-in p-4">
+            <MuteToggle />
             <div className="flex-1">
                 <h2 className="text-2xl font-bold mb-4 text-poo-brown">Place Your Poo Fleet</h2>
                 <p className="mb-4 text-gray-600">Tap grid to place. Rotate before placing.</p>
