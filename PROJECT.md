@@ -1,6 +1,6 @@
 # Battlepoos - AI Development Guide
 
-**Last Updated:** 2024-12-18  
+**Last Updated:** 2025-12-18  
 **Current Phase:** Phase 1 - Playable Core  
 **Current Task:** Issue #1 - Fix Game Over State  
 **Status:** Ready to start
@@ -201,18 +201,18 @@ Battlepoos/
 
 **Purpose:** Record key decisions, surprises, and learnings for portfolio narrative
 
-### 2024-12-18: Project Setup
+### 2025-12-18: Project Setup
 - **Decision:** Polish existing code rather than rebuild from scratch
 - **Rationale:** Code structure is modular (client/server separation, .tsx components identifiable). Goal is learning what "good enough" looks like for rapid prototypes.
 - **Risk:** Technical debt may accumulate if Antigravity's code quality is poor
 - **Mitigation:** Time-box polish effort; abandon if refactoring becomes harder than rebuild
 
-### 2024-12-18: Prioritization Strategy
+### 2025-12-18: Prioritization Strategy
 - **Decision:** Playable > Pretty > Engaging (Phase 1 → 2 → 3)
 - **Rationale:** Broken mechanics are more frustrating than ugly aesthetics. Get game loop working first, then polish appearance, finally add engagement hooks.
 - **Alternative considered:** Visual polish first (make it portfolio-ready immediately) - rejected because broken game isn't shippable regardless of looks
 
-### 2024-12-18: AI Delegation Strategy
+### 2025-12-18: AI Delegation Strategy
 - **Decision:** Test different AI models on specific tasks (Claude Code for logic, Gemini for UI)
 - **Rationale:** Learn which AIs excel at what; document for future projects
 - **Hypothesis:** Backend/state management → Claude Code; Visual/CSS → Gemini/Antigravity
