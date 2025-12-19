@@ -123,14 +123,16 @@ The server imports from `../../shared/src` while the client imports from local `
 
 **Socket.io Events:**
 - Client connects to server on `http://localhost:3000`
-- Emits: `join_match`, `place_ships`, `fire_shot`
-- Receives: `state_update`, `error`, `event` (for hit/miss/sunk with audio triggers)
+- Emits: `join_match`, `place_ships`, `fire_shot`, `restart_game`
+- Receives: `state_update`, `error`, `event` (for hit/miss/sunk with audio triggers), `game_reset`
 
 **Components:**
 - `Lobby.tsx` - Match creation and joining UI
-- `Placement.tsx` - Ship placement phase (drag-and-drop or click-to-place)
+- `Placement.tsx` - Ship placement phase (click-to-place with rotation)
 - `Battle.tsx` - Active combat phase
 - `Board.tsx` - Reusable grid component for both player and opponent boards
+- `GameOver.tsx` - Game completion screen with winner/loser differentiation
+- `MuteToggle.tsx` - Sound mute/unmute control
 - `ToastContainer.tsx` - Toast notifications
 
 ### Server Architecture
@@ -178,14 +180,21 @@ Core game logic lives in `shared/src/logic.ts`:
 
 1. **Lobby Phase**: Player 1 creates match, Player 2 joins with matchId
 2. **Placement Phase**: Both players place 5 ships (Carrier=5, Battleship=4, Cruiser=3, Submarine=3, Destroyer=2)
+   - Ships can be rotated horizontal/vertical before placement
+   - Randomize button for quick ship placement
 3. **Active Phase**: Players take turns firing shots at opponent's board
 4. **Finished Phase**: Game ends when all of one player's ships are sunk
+   - Winner sees "Victory!" message (green styling)
+   - Loser sees "Defeat!" message (gray styling)
+   - Players can restart game or return to lobby
 
 ## Audio and Visuals
 
-- Audio effects triggered via `client/src/shared/audio.ts` (hit, miss, sink sounds)
+- Audio effects via `client/src/shared/audio.ts` (hit, miss, sink, place, win, lose sounds)
+- Mute toggle available on all game screens (persists in localStorage)
+- Sounds respect tab focus (don't play when tab is hidden)
 - Toast notifications for game events
-- Humorous poo-themed emojis: 💧 miss, 💥 hit, 💩 sunk
+- Humorous poo-themed emojis: 💧 miss, 💥 hit, 💩 sunk, 🚢 ship
 
 ## TypeScript Configuration
 

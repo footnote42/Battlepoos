@@ -46,26 +46,28 @@
 **Goal:** Full game loop functional, core mechanics complete  
 **Est. Total:** 4-7 hours
 
-- [ ] **Issue #1:** Fix Game Over State (1-2h) → `/docs/issues/01-game-over-state.md`
-  - Status: NOT STARTED
-  - Assigned to: TBD
-  - Blockers: None
+- [x] **Issue #1:** Fix Game Over State (1-2h) → `/docs/issues/01-game-over-state.md`
+  - Status: COMPLETE
+  - Assigned to: Claude Code
+  - Completed: 2025-12-19
+  - Notes: Winner/loser differentiation, Play Again, Return to Lobby all implemented
   
 - [ ] **Issue #2:** Implement Ship Rotation (2-4h) → `/docs/issues/02-ship-rotation.md`
-  - Status: BLOCKED (waiting for Issue #1)
+  - Status: NOT STARTED
   - Assigned to: TBD
-  - Blockers: Need clean game loop first
+  - Blockers: None (Issue #1 complete)
   
-- [ ] **Issue #3:** Add Restart Button (1h) → `/docs/issues/03-restart-button.md`
-  - Status: BLOCKED (waiting for Issue #1)
-  - Assigned to: TBD
-  - Blockers: Needs game-over logic from Issue #1
+- [x] **Issue #3:** Add Restart Button (1h) → `/docs/issues/03-restart-button.md`
+  - Status: COMPLETE (implemented with Issue #1)
+  - Assigned to: Claude Code
+  - Completed: 2025-12-19
+  - Notes: Play Again button implemented as part of GameOver component
 
 **Phase 1 Exit Criteria:**
-- [ ] Two players can complete full game (placement → play → game over → restart)
-- [ ] Winner/loser see correct messages
+- [x] Two players can complete full game (placement → play → game over → restart)
+- [x] Winner/loser see correct messages
 - [ ] Ships can be rotated during placement
-- [ ] Game can be restarted without browser refresh
+- [x] Game can be restarted without browser refresh
 
 ---
 
