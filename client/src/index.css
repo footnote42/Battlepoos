@@ -2,11 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Spacing Scale */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /* Board Variables */
+  --board-grid-size: 10;
+  --fluid-cell-size: clamp(32px, calc((100vw - (var(--spacing-md) * 4)) / var(--board-grid-size)), 60px);
+}
+
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #e0f7fa; /* Light water */
+  background: linear-gradient(135deg, #e0f7fa 0%, #80deea 100%);
+  background-attachment: fixed;
 }
+
+#root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

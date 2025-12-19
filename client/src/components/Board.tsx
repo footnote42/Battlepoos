@@ -50,8 +50,11 @@ const Board: React.FC<BoardProps> = ({
 
     return (
         <div
-            className="grid gap-1 bg-blue-200 p-2 rounded border-4 border-blue-400 select-none shadow-inner"
-            style={{ gridTemplateColumns: `repeat(${BOARD_SIZE}, minmax(0, 1fr))` }}
+            className="grid gap-0.5 bg-blue-200 p-1 rounded-lg border-2 border-blue-400 select-none shadow-xl overflow-hidden"
+            style={{
+                gridTemplateColumns: `repeat(${BOARD_SIZE}, var(--fluid-cell-size))`,
+                width: 'fit-content'
+            }}
             onMouseLeave={() => onCellHover && onCellHover(null)}
         >
             {grid.map((row, y) => (
@@ -61,22 +64,21 @@ const Board: React.FC<BoardProps> = ({
                     const isPreview = isPreviewAt(x, y);
 
                     // Determine background color
-                    let bgColor = "bg-white/80";
+                    let bgColor = "bg-white/90";
                     if (isPreview) {
-                        bgColor = isValidPreview ? "bg-green-400/70" : "bg-red-400/70";
+                        bgColor = isValidPreview ? "bg-green-400/80" : "bg-red-400/80";
                     } else if (ship) {
-                        bgColor = "bg-gray-600";
+                        bgColor = "bg-gray-700";
                     } else if (shot === 'miss') {
-                        bgColor = "bg-white";
+                        bgColor = "bg-blue-50";
                     } else if (shot === 'hit') {
                         bgColor = "bg-red-500";
                     } else if (shot === 'sunk') {
-                        bgColor = "bg-poo-brown animate-bounce";
+                        bgColor = "bg-orange-900 animate-pulse";
                     }
 
-                    // Hover effect only if interactive and not previewing over it (preview handles its own look mostly, 
-                    // but we can keep hover if not previewing)
-                    const hoverClass = (interactive && !shot && !isPreview && !ship) ? "hover:bg-blue-300" : "";
+                    // Hover effect
+                    const hoverClass = (interactive && !shot && !isPreview && !ship) ? "hover:bg-blue-100" : "";
 
                     return (
                         <div
@@ -86,8 +88,6 @@ const Board: React.FC<BoardProps> = ({
                                     if (!isPreview || isValidPreview) {
                                         import('../shared/audio').then(m => m.audioManager.play('place'));
                                         onCellClick({ x, y });
-                                    } else {
-                                        // Error sound?
                                     }
                                 }
                             }}
@@ -97,17 +97,18 @@ const Board: React.FC<BoardProps> = ({
                                 }
                             }}
                             className={clsx(
-                                "w-8 h-8 md:w-10 md:h-10 border border-blue-300 rounded flex items-center justify-center text-lg transition-colors cursor-pointer",
+                                "aspect-square border border-blue-200/50 flex items-center justify-center text-lg transition-all duration-150 cursor-pointer",
                                 hoverClass,
                                 bgColor
                             )}
+                            style={{ width: 'var(--fluid-cell-size)', height: 'var(--fluid-cell-size)' }}
                         >
-                            {shot === 'miss' && '💧'}
-                            {shot === 'hit' && '💥'}
-                            {shot === 'sunk' && '💩'}
-                            {!shot && ship && !isPreview && '🚢'}
-                            {isPreview && isValidPreview && '🚢'}
-                            {isPreview && !isValidPreview && '❌'}
+                            {shot === 'miss' && <span className="text-blue-400 opacity-60">💧</span>}
+                            {shot === 'hit' && <span className="animate-bounce">💥</span>}
+                            {shot === 'sunk' && <span className="scale-125">💩</span>}
+                            {!shot && ship && !isPreview && <span className="opacity-90">🚢</span>}
+                            {isPreview && isValidPreview && <span className="opacity-50">🚢</span>}
+                            {isPreview && !isValidPreview && <span className="opacity-50">❌</span>}
                         </div>
                     );
                 })

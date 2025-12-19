@@ -76,10 +76,11 @@
 **Goal:** Centered layout, professional appearance  
 **Est. Total:** 5-7 hours
 
-- [ ] **Issue #4:** Center Layout & Spacing (2-3h) → `/docs/issues/04-center-layout.md`
-  - Status: NOT STARTED
-  - Assigned to: TBD
-  - Blockers: None (can start independently)
+- [x] **Issue #4:** Center Layout & Spacing (2-3h) → `/docs/issues/04-center-layout.md`
+  - Status: COMPLETE
+  - Assigned to: Antigravity
+  - Completed: 2025-12-19
+  - Notes: Layout centered across all screens (Lobby, Placement, Battle). Applied consistent spacing and verified responsive design on various viewports.
   
 - [ ] **Issue #5:** Visual Design Overhaul (3-4h) → `/docs/issues/05-visual-design.md`
   - Status: NOT STARTED

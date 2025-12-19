@@ -2,6 +2,7 @@ import React from 'react';
 import { useGameStore } from '../game/store';
 import Board from './Board';
 import MuteToggle from './MuteToggle';
+import clsx from 'clsx';
 
 const Battle: React.FC = () => {
     const { gameState, playerId, fireShot } = useGameStore();
@@ -15,23 +16,28 @@ const Battle: React.FC = () => {
     const isMyTurn = gameState.turn === playerId;
 
     return (
-        <div className="flex flex-col items-center w-full animate-fade-in pb-8">
+        <div className="flex flex-col items-center w-full animate-fade-in pb-12">
             <MuteToggle />
-            <h2 className="text-3xl font-extrabold mb-2 text-poo-brown drop-shadow-sm">
+            <h2 className="text-2xl md:text-3xl font-extrabold mb-8 text-poo-brown drop-shadow-sm text-center px-4">
                 {isMyTurn ? "YOUR TURN! FIRE! 🔥" : "Opponent is aiming... 😰"}
             </h2>
 
-            <div className="flex flex-col md:flex-row gap-8 mt-4 w-full justify-center">
+            <div className="flex flex-col xl:flex-row items-center justify-center gap-12 w-full max-w-7xl px-4">
 
                 {/* Opponent Board (Target) */}
-                <div className="flex flex-col items-center">
-                    <h3 className="font-bold text-red-600 mb-2 text-xl">Target Area (Click to Fire)</h3>
-                    <div className={`p-1 rounded-lg ${isMyTurn ? 'ring-4 ring-green-400 shadow-[0_0_20px_rgba(74,222,128,0.5)]' : 'opacity-80 grayscale'}`}>
+                <div className="flex flex-col items-center max-w-full">
+                    <h3 className="font-bold text-red-600 mb-4 text-xl bg-red-50 px-4 py-1 rounded-full border border-red-100 shadow-sm">
+                        Target Area
+                    </h3>
+                    <div className={clsx(
+                        "p-2 rounded-xl transition-all duration-300 max-w-full overflow-auto",
+                        isMyTurn ? "ring-8 ring-green-400/30 shadow-2xl bg-green-50/50" : "opacity-60 grayscale scale-95"
+                    )}>
                         {opponentBoard && (
                             <Board
-                                ships={opponentBoard.ships} // Will be empty/redacted
+                                ships={opponentBoard.ships}
                                 shots={opponentBoard.shots}
-                                showShips={false} // Redundant but safe
+                                showShips={false}
                                 interactive={isMyTurn}
                                 onCellClick={(coord) => isMyTurn && fireShot(coord)}
                             />
@@ -40,16 +46,14 @@ const Battle: React.FC = () => {
                 </div>
 
                 {/* Own Board */}
-                <div className="flex flex-col items-center">
-                    <h3 className="font-bold text-blue-600 mb-2 text-xl">Your Fleet</h3>
-                    <div className="scale-75 md:scale-90 origin-top">
+                <div className="flex flex-col items-center max-w-full">
+                    <h3 className="font-bold text-blue-600 mb-4 text-xl bg-blue-50 px-4 py-1 rounded-full border border-blue-100 shadow-sm">
+                        Your Fleet
+                    </h3>
+                    <div className="scale-90 md:scale-100 transition-transform origin-center">
                         <Board
                             ships={myBoard.ships}
-                            shots={myBoard.shots} // Shows where opponent hit us? 
-                            // Wait, logic check: gameState.players[myId].shots stores MY shots fired or shots hitting ME?
-                            // In Match.ts: "opponentBoard.shots.set(key, result)" when I fire.
-                            // So opponentBoard.shots = shots taken AGAINST opponent.
-                            // So myBoard.shots = shots taken AGAINST me.
+                            shots={myBoard.shots}
                             showShips={true}
                             interactive={false}
                         />
