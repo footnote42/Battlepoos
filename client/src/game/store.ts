@@ -15,6 +15,8 @@ interface GameStore {
     placeShips: (ships: Ship[]) => void;
     fireShot: (coord: Coordinate) => void;
     resetError: () => void;
+    restartGame: () => void;
+    returnToLobby: () => void;
 }
 
 export const useGameStore = create<GameStore>((set: any, get: any) => ({
@@ -58,13 +60,22 @@ export const useGameStore = create<GameStore>((set: any, get: any) => ({
                 if (evt.type === 'sunk') m.audioManager.play('sink');
             });
 
-            // Toasts via dynamic import or just let component handle? 
+            // Toasts via dynamic import or just let component handle?
             // Better to decouple store from UI components, but we are inside a hook effectively.
             // Let's lazy import the store to avoid cyclical issues if any, though store->store is usually fine.
             import('./toastStore').then(ts => {
                 if (evt.type === 'sunk') ts.useToastStore.getState().addToast(`You sunk a ${evt.ship.type}!`, 'success');
                 if (evt.type === 'hit') ts.useToastStore.getState().addToast('Hit!', 'success');
                 if (evt.type === 'miss') ts.useToastStore.getState().addToast('Miss!', 'info');
+            });
+        });
+
+        socket.on('game_reset', (data: any) => {
+            console.log('Game reset received:', data);
+            // The state_update will handle the actual state change
+            // Just show a toast notification
+            import('./toastStore').then(ts => {
+                ts.useToastStore.getState().addToast('Game restarted! Place your ships.', 'info');
             });
         });
     },
@@ -94,5 +105,17 @@ export const useGameStore = create<GameStore>((set: any, get: any) => ({
         if (socket) socket.emit('fire_shot', coord);
     },
 
-    resetError: () => set({ error: null })
+    resetError: () => set({ error: null }),
+
+    restartGame: () => {
+        const { socket, gameState } = get();
+        if (socket && gameState) {
+            socket.emit('restart_game', { matchId: gameState.matchId });
+        }
+    },
+
+    returnToLobby: () => {
+        // Clear game state to return to lobby
+        set({ gameState: null });
+    }
 }));

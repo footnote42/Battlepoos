@@ -4,10 +4,10 @@ import Lobby from './components/Lobby';
 import Placement from './components/Placement';
 import Battle from './components/Battle';
 import { ToastContainer } from './components/ToastContainer';
-// import GameOver from './components/GameOver';
+import GameOver from './components/GameOver';
 
 function App() {
-    const { connect, gameState, error, resetError } = useGameStore();
+    const { connect, gameState, playerId, error, resetError } = useGameStore();
 
     useEffect(() => {
         connect();
@@ -25,7 +25,7 @@ function App() {
             case 'active':
                 return <Battle />;
             case 'finished':
-                return <div>Game Over! Winner: {gameState.winner}</div>;
+                return <GameOver winnerId={gameState.winner || ''} currentPlayerId={playerId || ''} />;
             default:
                 return <div>Unknown Phase: {gameState.phase}</div>;
         }

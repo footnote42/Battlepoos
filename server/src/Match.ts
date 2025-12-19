@@ -74,6 +74,10 @@ export class Match {
         socket.on('fire_shot', (coord: Coordinate) => {
             this.handleShot(playerId, coord);
         });
+
+        socket.on('restart_game', () => {
+            this.handleRestart();
+        });
     }
 
     handlePlacement(playerId: string, ships: Ship[]) {
@@ -166,6 +170,33 @@ export class Match {
         }
 
         this.broadcastState();
+    }
+
+    handleRestart() {
+        // Validate: only allow restart from finished state
+        if (this.state.phase !== 'finished') {
+            return;
+        }
+
+        // Reset game state to placement phase
+        this.state.phase = 'placement';
+        this.state.turn = '';
+        this.state.winner = null;
+
+        // Clear all player boards
+        for (const playerId in this.state.players) {
+            this.state.players[playerId].ships = [];
+            this.state.players[playerId].shots = new Map();
+        }
+
+        // Broadcast reset state to all players
+        this.broadcastState();
+
+        // Emit game-reset event to all clients
+        this.io.to(this.id).emit('game_reset', {
+            message: 'Game has been reset',
+            phase: 'placement'
+        });
     }
 
     // Redact opponent ships
