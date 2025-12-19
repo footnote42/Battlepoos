@@ -103,12 +103,12 @@ const Board: React.FC<BoardProps> = ({
                             )}
                             style={{ width: 'var(--fluid-cell-size)', height: 'var(--fluid-cell-size)' }}
                         >
-                            {shot === 'miss' && <span className="text-blue-400 opacity-60">💧</span>}
-                            {shot === 'hit' && <span className="animate-bounce">💥</span>}
-                            {shot === 'sunk' && <span className="scale-125">💩</span>}
-                            {!shot && ship && !isPreview && <span className="opacity-90">🚢</span>}
-                            {isPreview && isValidPreview && <span className="opacity-50">🚢</span>}
-                            {isPreview && !isValidPreview && <span className="opacity-50">❌</span>}
+                            {shot === 'miss' && <span className="icon-miss opacity-80" aria-label="Miss" />}
+                            {shot === 'hit' && <span className="icon-hit animate-bounce" aria-label="Hit" />}
+                            {shot === 'sunk' && <span className="icon-sunk" aria-label="Sunk" />}
+                            {!shot && ship && !isPreview && <span className="icon-ship opacity-90" aria-label="Ship" />}
+                            {isPreview && isValidPreview && <span className="icon-ship opacity-50" aria-label="Valid placement" />}
+                            {isPreview && !isValidPreview && <span className="text-red-500 text-2xl font-bold opacity-70" aria-label="Invalid placement">×</span>}
                         </div>
                     );
                 })
