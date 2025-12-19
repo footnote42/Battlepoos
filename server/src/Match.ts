@@ -173,10 +173,10 @@ export class Match {
     }
 
     handleRestart() {
-        // Validate: only allow restart from finished state
-        if (this.state.phase !== 'finished') {
-            return;
-        }
+        // Validate: only allow restart from finished state -> REMOVED to allow any-time restart
+        // if (this.state.phase !== 'finished') {
+        //     return;
+        // }
 
         // Reset game state to placement phase
         this.state.phase = 'placement';

@@ -58,11 +58,11 @@
   - Completed: 2025-12-19
   - Notes: Added rotation button, keyboard shortcuts (R/Space), and ghost ship preview with valid/invalid visual feedback.
   
-- [ ] **Issue #3:** Add Restart Button (1h) → `/docs/issues/03-restart-button.md`
-  - Status: COMPLETE (implemented with Issue #1)
-  - Assigned to: Claude Code
+- [x] **Issue #3:** Add Restart Button (1h) → `/docs/issues/03-restart-button.md`
+  - Status: COMPLETE
+  - Assigned to: Antigravity
   - Completed: 2025-12-19
-  - Notes: Play Again button implemented as part of GameOver component
+  - Notes: Added persistent Restart button in header with confirmation dialog. Allows mid-game resets.
 
 **Phase 1 Exit Criteria:**
 - [x] Two players can complete full game (placement → play → game over → restart)
