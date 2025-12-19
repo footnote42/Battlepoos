@@ -52,12 +52,13 @@
   - Completed: 2025-12-19
   - Notes: Winner/loser differentiation, Play Again, Return to Lobby all implemented
   
-- [ ] **Issue #2:** Implement Ship Rotation (2-4h) → `/docs/issues/02-ship-rotation.md`
-  - Status: NOT STARTED
-  - Assigned to: TBD
-  - Blockers: None (Issue #1 complete)
+- [x] **Issue #2:** Implement Ship Rotation (2-4h) → `/docs/issues/02-ship-rotation.md`
+  - Status: COMPLETE
+  - Assigned to: Antigravity
+  - Completed: 2025-12-19
+  - Notes: Added rotation button, keyboard shortcuts (R/Space), and ghost ship preview with valid/invalid visual feedback.
   
-- [x] **Issue #3:** Add Restart Button (1h) → `/docs/issues/03-restart-button.md`
+- [ ] **Issue #3:** Add Restart Button (1h) → `/docs/issues/03-restart-button.md`
   - Status: COMPLETE (implemented with Issue #1)
   - Assigned to: Claude Code
   - Completed: 2025-12-19
@@ -66,7 +67,7 @@
 **Phase 1 Exit Criteria:**
 - [x] Two players can complete full game (placement → play → game over → restart)
 - [x] Winner/loser see correct messages
-- [ ] Ships can be rotated during placement
+- [x] Ships can be rotated during placement
 - [x] Game can be restarted without browser refresh
 
 ---

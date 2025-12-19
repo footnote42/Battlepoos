@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useGameStore } from '../game/store';
 import Board from './Board';
 import { Ship, ShipType, SHIP_LENGTHS, Coordinate } from '../shared/types';
@@ -14,8 +14,34 @@ const Placement: React.FC = () => {
     const [orientation, setOrientation] = useState<'horizontal' | 'vertical'>('horizontal');
     const [placedTypes, setPlacedTypes] = useState<Set<ShipType>>(new Set());
 
+    const [hoveredCell, setHoveredCell] = useState<Coordinate | null>(null);
+
     // Available ships
     const availableShips: ShipType[] = ['carrier', 'battleship', 'cruiser', 'submarine', 'destroyer'];
+
+    // Keyboard rotation
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'r' || e.key === 'R' || e.key === ' ') {
+                e.preventDefault(); // Prevent scrolling with space
+                setOrientation(prev => prev === 'horizontal' ? 'vertical' : 'horizontal');
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
+    const previewShip: Ship | null = (selectedType && hoveredCell) ? {
+        id: 'preview',
+        type: selectedType,
+        position: hoveredCell,
+        orientation,
+        hits: 0,
+        sunk: false
+    } : null;
+
+    const isValidPreview = previewShip ? isValidPlacement(previewShip, ships) : false;
 
     const handleCellClick = (coord: Coordinate) => {
         if (!selectedType) return;
@@ -37,9 +63,9 @@ const Placement: React.FC = () => {
             // Auto select next available
             const next = availableShips.find(t => !placedTypes.has(t) && t !== selectedType);
             setSelectedType(next || null);
+            setHoveredCell(null); // Clear hover to update preview immediately/avoid stale
         } else {
-            // Feedback?
-            alert("Invalid placement! Overlap or out of bounds."); // Replace with toast later
+            // Toast handled by board invalid preview visual mostly, but keep just in case
         }
     };
 
@@ -109,9 +135,17 @@ const Placement: React.FC = () => {
             <MuteToggle />
             <div className="flex-1">
                 <h2 className="text-2xl font-bold mb-4 text-poo-brown">Place Your Poo Fleet</h2>
-                <p className="mb-4 text-gray-600">Tap grid to place. Rotate before placing.</p>
+                <p className="mb-4 text-gray-600">Tap grid to place. Rotate with 'R', Space, or button.</p>
 
-                <Board ships={ships} showShips={true} interactive={true} onCellClick={handleCellClick} />
+                <Board
+                    ships={ships}
+                    showShips={true}
+                    interactive={true}
+                    onCellClick={handleCellClick}
+                    onCellHover={setHoveredCell}
+                    previewShip={previewShip}
+                    isValidPreview={isValidPreview}
+                />
 
                 <div className="mt-4 flex gap-4">
                     <button onClick={() => setOrientation(o => o === 'horizontal' ? 'vertical' : 'horizontal')} className="px-4 py-2 bg-blue-500 text-white rounded shadow">
